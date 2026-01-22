@@ -1,2 +1,2 @@
-# n-AI-Driven-Clinical-Decision-System-for-Symptom-Based-Disease-Category-Prediction-N
+# AI-Driven-Clinical-Decision-System-for-Symptom-Based-Disease-Category-Prediction
 The system takes response driven notes from user and gives  disease prediction based on symptoms. You may think if the mecanism is keyword based, then why machine learning ?  Actually we do not speak or write in direct meaning full words. We just express our condition .  This system asks question based on your response and extract meaning. 
