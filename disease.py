@@ -15,7 +15,31 @@ from transformers import (
     TrainingArguments
 )
 
-"""# dataset insertion"""
-
 uploaded = files.upload()
 df = pd.read_csv(list(uploaded.keys())[0])
+
+
+
+DISEASE_TO_CATEGORY = {
+    "Common Cold":"Respiratory","Influenza":"Respiratory","COVID-19":"Respiratory",
+    "Pneumonia":"Respiratory","Tuberculosis":"Respiratory","Asthma":"Respiratory",
+    "Bronchitis":"Respiratory","Sinusitis":"Respiratory",
+
+    "Heart Disease":"Cardiovascular","Hypertension":"Cardiovascular","Stroke":"Cardiovascular",
+
+    "Gastritis":"Gastrointestinal","Food Poisoning":"Gastrointestinal",
+    "Irritable Bowel Syndrome (IBS)":"Gastrointestinal","Ulcer":"Gastrointestinal",
+    "Liver Disease":"Gastrointestinal",
+
+    "Migraine":"Neurological","Epilepsy":"Neurological","Dementia":"Neurological",
+    "Parkinson’s Disease":"Neurological",
+
+    "Diabetes":"Metabolic","Chronic Kidney Disease":"Metabolic",
+    "Thyroid Disorder":"Metabolic","Obesity":"Metabolic",
+
+    "Depression":"Mental Health","Anxiety":"Mental Health",
+    "Allergy":"General","Dermatitis":"General","Arthritis":"General","Anemia":"General"
+}
+
+df["category"] = df["Disease"].map(DISEASE_TO_CATEGORY)
+df.dropna(inplace=True)
