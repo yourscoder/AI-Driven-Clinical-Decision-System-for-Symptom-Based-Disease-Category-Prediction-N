@@ -79,5 +79,31 @@ class HealthDataset(torch.utils.data.Dataset):
         return len(self.labels)
 
 train_ds = HealthDataset(train_enc, y_train)
-test_ds  = HealthDataset(test_enc, y_test)
+test_ds  = HealthDataset(test_enc, y_test)  
+model = DistilBertForSequenceClassification.from_pretrained(
+    "distilbert-base-uncased",
+    num_labels=len(le.classes_)
+)
+
+args = TrainingArguments(
+    output_dir="./model",
+    eval_strategy="epoch",
+    per_device_train_batch_size=8,
+    num_train_epochs=3,
+    learning_rate=2e-5
+)
+trainer = Trainer(
+    model=model,
+    args=args,
+    train_dataset=train_ds,
+    eval_dataset=test_ds
+)
+trainer.train()
+trainer.save_model("trained_model")
+tokenizer.save_pretrained("trained_model")
+import pickle
+with open("trained_model/label_encoder.pkl", "wb") as f:
+    pickle.dump(le, f)
+
+
 
