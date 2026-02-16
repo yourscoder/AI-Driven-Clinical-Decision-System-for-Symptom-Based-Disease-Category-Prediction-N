@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+import shutil
 import torch
 import spacy
-import re
+import re 
 
 from google.colab import files
 from sklearn.model_selection import train_test_split
@@ -105,5 +106,11 @@ import pickle
 with open("trained_model/label_encoder.pkl", "wb") as f:
     pickle.dump(le, f)
 
+import shutil
+from google.colab import files
+
+
+shutil.make_archive("trained_model", 'zip', "trained_model")
+files.download("trained_model.zip")
 
 
