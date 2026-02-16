@@ -43,3 +43,16 @@ DISEASE_TO_CATEGORY = {
 
 df["category"] = df["Disease"].map(DISEASE_TO_CATEGORY)
 df.dropna(inplace=True)
+
+
+nlp = spacy.load("en_core_web_sm")
+
+def preprocess(text):
+    text = text.lower()
+    text = re.sub(r"[^a-zA-Z, ]", "", text)
+    doc = nlp(text)
+    return " ".join(
+        token.lemma_ for token in doc if not token.is_stop
+    )
+
+df["clean_text"] = df["Symptoms"].apply(preprocess)
