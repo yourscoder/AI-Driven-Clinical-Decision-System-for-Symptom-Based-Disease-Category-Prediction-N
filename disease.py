@@ -65,3 +65,19 @@ X_train, X_test, y_train, y_test = train_test_split(
     df["clean_text"], df["label"], test_size=0.2, stratify=df["label"]
 )
 
+class HealthDataset(torch.utils.data.Dataset):
+    def __init__(self, enc, labels):
+        self.enc = enc
+        self.labels = labels.values
+
+    def __getitem__(self, idx):
+        item = {k: torch.tensor(v[idx]) for k, v in self.enc.items()}
+        item["labels"] = torch.tensor(self.labels[idx])
+        return item
+
+    def __len__(self):
+        return len(self.labels)
+
+train_ds = HealthDataset(train_enc, y_train)
+test_ds  = HealthDataset(test_enc, y_test)
+
