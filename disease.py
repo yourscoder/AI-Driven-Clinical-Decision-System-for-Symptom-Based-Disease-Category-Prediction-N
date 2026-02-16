@@ -55,4 +55,13 @@ def preprocess(text):
         token.lemma_ for token in doc if not token.is_stop
     )
 
-df["clean_text"] = df["Symptoms"].apply(preprocess)
+df["clean_text"] = df["Symptoms"].apply(preprocess) 
+
+
+le = LabelEncoder()
+df["label"] = le.fit_transform(df["category"])
+
+X_train, X_test, y_train, y_test = train_test_split(
+    df["clean_text"], df["label"], test_size=0.2, stratify=df["label"]
+)
+
