@@ -110,7 +110,6 @@ import shutil
 from google.colab import files
 
 
-shutil.make_archive("trained_model", 'zip', "trained_model")
-files.download("trained_model.zip")
+
 
 
