@@ -102,14 +102,14 @@ trainer = Trainer(
 trainer.train()
 trainer.save_model("trained_model")
 tokenizer.save_pretrained("trained_model")
+
 import pickle
 with open("trained_model/label_encoder.pkl", "wb") as f:
     pickle.dump(le, f)
 
-import shutil
-from google.colab import files
 
 
-
-
+#save files
+shutil.make_archive("trained_model", 'zip', "trained_model")
+files.download("trained_model.zip")
 
